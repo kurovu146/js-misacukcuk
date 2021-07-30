@@ -1,6 +1,6 @@
 /**
  *  Tạo popup cho page
- *  created by: Vũ Đức Tuấn 28/07/2021
+ *  created by: Vũ Đức Tuấn 30/07/2021
  * */
 class PopupJs {
 
@@ -11,7 +11,7 @@ class PopupJs {
      * @param {string} content 
      * @param {html} secondaryButton 
      * @param {html} primaryButton
-     * createBy: Vũ Đức Tuấn 28/07/2021 
+     * createBy: Vũ Đức Tuấn 30/07/2021 
      */
     constructor(title, content, secondaryButton = null, primaryButton) {
         this.title = title ?? "popup";
@@ -45,9 +45,6 @@ class PopupJs {
                         <div class="close-button">&times;</div>
                     </div>
                     <div class="popup-content">
-                        <div class="content-icon">
-                            <img src="../content/icon/btn-next-page.svg" alt="">
-                        </div>
                         <div class="content-text">
                             ${this.content}
                         </div>
@@ -64,7 +61,7 @@ class PopupJs {
     /**
     *  Hiện popup
     *   @param {function} action hành động sau khi popup được xác nhận
-    *  created by: Vũ Đức Tuấn 28/07/2021
+    *  created by: Vũ Đức Tuấn 30/07/2021
     * */
     showPopup(action = () => null) {
         const me = this;

@@ -86,16 +86,18 @@ function initEvent(employee) {
             url: `http://cukcuk.manhnv.net/v1/Employees/${id}`,
         }).done((res) => {
             $("#txtEmployeeCode").val(res["EmployeeCode"]);
-            $("#txtDateOfBirth").val(new Date(res["DateOfBirth"]).toISOString().substr(0, 10));
+            $("#txtDateOfBirth").val(formatDateForm(res["DateOfBirth"]));
             $("#txtIdentityNumber").val(res["IdentityNumber"]);
             $("#txtIdentityPlace").val(res["IdentityPlace"]);
             $("#txtFullName").val(res["FullName"]);
+            $("#txtDepartmentName").val(res["DepartmentName"]);
             $("#txtEmail").val(res["Email"]);
             $("#txtPhoneNumber").val(res["PhoneNumber"]);
-            $("#txtGenderName").val(res["GenderName"]);
-            $("#txtIdentityDate").val(new Date(res["IdentityDate"]).toISOString().substr(0, 10));
+            $("#txtGenderName").val(res["Gender"]);
+            $("#txtIdentityDate").val(formatDateForm(res["IdentityDate"]));
             $("#txtPersonalTaxCode").val(res["PersonalTaxCode"]);
             $("#txtSalary").val(res["Salary"]);
+            $("#txtWorkStatus").val(res["WorkStatus"]);
         }).fail(error => {
             console.error(error);
         });
@@ -129,14 +131,14 @@ function initEvent(employee) {
             return;
         }
         const request = {};
-        $(".employee-details .dialog, input, select").each(function() {
+        $(".employee-details .dialog input").each(function() {
             const id = $(this).attr("id");
             if (id) {
                 Object.assign(request, {
                     [`${id.substr(3)}`]: $(this).val()
                 })
             }
-        });
+        }); 
         const method = $("#btnSave").attr("type");
         if (method === "PUT") {
             popupConfirmSave.setContent("Bạn có chắc muốn thay đổi thông tin của form?")
@@ -238,6 +240,7 @@ class EmployeeJS extends BaseJS {
     update(request) {
         const me = this;
         const id = $("#txtEmployeeId").val();
+
         $.ajax({
             type: "PUT",
             url: `http://cukcuk.manhnv.net/v1/Employees/${id}`,

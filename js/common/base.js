@@ -119,20 +119,24 @@ class BaseJS {
                         const formatType = $(th).attr("formatType");
                         let data = item[fieldName] || "";
                         let style = "";
-
+                        let checkbox = "";
+                        
                         switch (formatType) {
                             case "date":
                                 data = formatDate(data);
                                 style = "text-align: center;"
                                 break;
                             case "currency":
-                                data = data ? Intl.NumberFormat("vn-VN").format(Number(data)).replace(".", ",") : "";
+                                data = formatSalary(data);
                                 style = "text-align: right;"
                                 break;
-                            default:
+                            case "checkbox":
+                                checkbox ='<input type="checkbox">';
+                                break;
+                            default: 
                                 break;
                         }
-                        const td = `<td style="${style}">${data}</td>`;
+                        const td = `<td style="${style}">${checkbox}${data}</td>`;
                         $(tr).append(td);
 
                     })
@@ -147,6 +151,7 @@ class BaseJS {
         //#endregion
 }
 
+// Validate Date
 function formatDate(date) {
     if (!date) {
         return "";
@@ -159,6 +164,21 @@ function formatDate(date) {
     if (day < 10) day = "0" + day;
     if (month < 10) month = "0" + month;
     return day + "/" + month + "/" + year;
+
+}
+// Validate Dateform
+function formatDateForm(date) {
+    if (!date) {
+        return "";
+    }
+
+    let day = new Date(date).getDate();
+    let month = new Date(date).getMonth() + 1;
+    let year = new Date(date).getFullYear();
+
+    if (day < 10) day = "0" + day;
+    if (month < 10) month = "0" + month;
+    return year + "-" + month + "-" + day;
 
 }
 
